@@ -7,18 +7,20 @@
     "module": "commonjs",
     "moduleResolution": "node",
     "paths": {
-      "#root/*": ["./src/*"]
+      "#root/*": ["./src/*"],
+      "#accessEnv": ["./src/helpers/accessEnv"]
     },
     "outDir": "./dist",
     "strict": true,
     "target": "es6",
-    "types": ["node"]
+    "types": ["node"],
+    "strictPropertyInitialization": false,
   },
   "include": [
       "./**/*"
   ],
   "exclude": [
-      "./src/db/**/*",
+      // "db/**/*",
       "node_modules",
       "dist"
   ]
