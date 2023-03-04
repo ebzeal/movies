@@ -1,55 +1,47 @@
 import {
-  BelongsTo,
-  Column,
-  DataType,
-  ForeignKey,
-  HasMany,
-  Model,
-  Table
-} from "sequelize-typescript";
-import Movie from "./Movie";
-import Review from "./Review";
+    Entity,
+    PrimaryGeneratedColumn,
+    Column,
+    CreateDateColumn,
+    UpdateDateColumn,
+    JoinColumn,
+    ManyToOne,
+    DeleteDateColumn,
+    OneToMany,
+    Relation
+} from 'typeorm';
+import { IMovie, IUser } from './models.interface';
+import { Review, Movie } from './index';
+@Entity('user')
+export class User implements IUser{
+    @PrimaryGeneratedColumn('increment')
+    id!: number;
 
-@Table({
-  defaultScope: {
-    attributes: { exclude: ["deletedAt"] }
-  },
-  paranoid: true,
-  tableName: "users"
-})
-export class User extends Model<User> {
-  @Column({
-    allowNull: false,
-    autoIncrement: true,
-    primaryKey: true,
-    type: DataType.INTEGER.UNSIGNED
-  })
-  id!: number;
+    @Column()
+    userName!: string;
 
-  @Column({
-    allowNull: false,
-    type: DataType.STRING
-  })
-  userName!: string;
+    @Column()
+    email!: string;
 
-  @Column({
-    allowNull: false,
-    type: DataType.STRING
-  })
-  email!: string;
+    @Column()
+    password!: string;
 
-  @Column({
-    allowNull: false,
-    type: DataType.STRING
-  })
-  password!: string;
+    @OneToMany(() => Movie, (movie: Movie) => movie.addedBy, {
+      eager: false,
+    })
+    movies!: [Movie];
 
-  @HasMany(() => Movie)
-  movies!: Movie[];
+    @OneToMany(() => Review, (review: Review) => review.reviewer, {
+      eager: false,
+    })
+    reviews!: [Review];
 
-  @HasMany(() => Review)
-  reviews!: Review[];
+    @CreateDateColumn()
+    createdAt!: Date;
+
+    @UpdateDateColumn()
+    updatedAt!: Date;
+
+    @DeleteDateColumn({ default: null, nullable: true })
+    deletedAt?: Date;
 }
-
-
-export default User;

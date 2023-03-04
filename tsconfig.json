@@ -4,23 +4,27 @@
     "baseUrl": ".",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "module": "commonjs",
+    "module": "ESNext",
     "moduleResolution": "node",
     "paths": {
       "#root/*": ["./src/*"],
-      "#accessEnv": ["./src/helpers/accessEnv"]
+      "#root": ["./src"],
+      "#db": ["./db"],
+      "#accessEnv": ["./src/helpers/accessEnv"],
+      "@entities":["./db/models/index.ts"]
     },
     "outDir": "./dist",
     "strict": true,
-    "target": "es6",
+    "target": "ES2022",
     "types": ["node"],
     "strictPropertyInitialization": false,
+    "allowSyntheticDefaultImports": true
   },
   "include": [
       "./**/*"
   ],
   "exclude": [
-      // "db/**/*",
+      "db/**/*",
       "node_modules",
       "dist"
   ]

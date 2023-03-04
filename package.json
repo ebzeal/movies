@@ -3,25 +3,28 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "eslint . --ext .ts"
+    "lint": "eslint . --ext .ts",
+    "dev": "node --watch --loader ts-node/esm --experimental-specifier-resolution node src/index.ts"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@apollo/server": "^4.4.1",
+    "cors": "^2.8.5",
     "dotenv": "^16.0.3",
+    "express": "^4.18.2",
     "graphql": "^16.6.0",
-    "module-alias": "^2.2.2",
+    "jsonwebtoken": "^9.0.0",
     "pg": "^8.9.0",
     "pg-hstore": "^2.3.4",
     "reflect-metadata": "^0.1.13",
-    "sequelize": "^6.29.0",
-    "sequelize-typescript": "^2.1.5"
+    "typeorm": "^0.3.12"
   },
   "devDependencies": {
     "@types/concurrently": "^7.0.0",
+    "@types/cors": "^2.8.13",
     "@types/eslint": "^8.21.1",
     "@types/express": "^4.17.17",
     "@types/graphql": "^14.5.0",
@@ -38,11 +41,7 @@
     "nodemon": "^2.0.21",
     "prettier-eslint": "^15.0.1",
     "prettier-eslint-cli": "^7.1.0",
-    "sequelize-cli": "^6.6.0",
     "ts-node": "^10.9.1",
     "typescript": "^4.9.5"
-  },
-  "_moduleAliases": {
-    "#accessEnv": "./src/helpers/accessEnv"
   }
 }

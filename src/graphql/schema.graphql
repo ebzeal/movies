@@ -1,0 +1,92 @@
+
+
+input CreateUserInput {
+  userName: String!
+  email: String!
+  password:  String!
+  confirmPassword: String!
+}
+
+input UpdateUserInput {
+  id: ID!
+  userName: String
+  email: String
+  password:  String
+}
+
+input CreateMovieInput {
+  name: String!
+  description: String
+  director: String
+  releaseDate: String
+}
+
+input UpdateMovieInput {
+  id: ID!
+  name: String
+  description: String
+  director: String
+  releaseDate: String
+}
+
+input QueryMovieInput {
+  id: ID
+  name: String
+  description: String
+}
+
+input AddReviewInput {
+  userId: Int!
+  movieId: Int!
+  rating: Int!
+  comment: String
+}
+
+input UpdateReviewInput {
+  userId: Int!
+  movieId: Int!
+  rating: Int
+  comment: String
+}
+
+
+type User {
+  userName: String!
+  email: String!
+  movies: [Movie]
+}
+
+type Movie {
+  name: String!
+  description: String
+  director: String
+  releaseDate: String
+  user: User,
+  reviews: [Review]
+}
+
+type Review {
+  user: User!
+  movie: Movie!
+  rating: Int
+  comment:String
+}
+
+type Mutation {
+  createUser(input: CreateUserInput!): User
+  updateUser(input: UpdateUserInput!): User
+  createMovie(input: CreateMovieInput!): Movie
+  updateMovie(input: UpdateMovieInput!): Movie
+  deleteMovie(id: ID!): Movie
+  addReview(input: AddReviewInput!): Review
+  updateReview(input: UpdateReviewInput): Review
+  deleteReview(id: ID!): Review
+}
+
+
+  type Query {
+    movies: [Movie!]
+    movie(input: QueryMovieInput!): Movie
+    movieReviews(movieId: ID!):[Review!]
+  }
+

@@ -1,61 +1,42 @@
+
 import {
-  BelongsTo,
-  Column,
-  DataType,
-  ForeignKey,
-  HasMany,
-  Model,
-  Table
-} from "sequelize-typescript";
-import Movie from "./Movie";
-import User from "./User";
+    Entity,
+    PrimaryGeneratedColumn,
+    Column,
+    CreateDateColumn,
+    UpdateDateColumn,
+    JoinColumn,
+    ManyToOne,
+    DeleteDateColumn,
+} from 'typeorm';
+import { User, Movie } from './index';
+import { IUser, IMovie, IReview } from './models.interface';
 
-@Table({
-  defaultScope: {
-    attributes: { exclude: ["deletedAt"] }
-  },
-  paranoid: true,
-  tableName: "reviews"
-})
-export class Review extends Model<Review> {
-  @Column({
-    allowNull: false,
-    autoIncrement: true,
-    primaryKey: true,
-    type: DataType.INTEGER.UNSIGNED
-  })
-  id!: number;
+@Entity('review')
+export class Review implements IReview{
+    @PrimaryGeneratedColumn('increment')
+    id!: number;
 
-  @Column({
-    allowNull: false,
-    type: DataType.INTEGER.UNSIGNED
-  })
-  @ForeignKey(() => User)
-  userId!: number;
+    @JoinColumn({ name: 'movie_id' })
+    @ManyToOne(() => Movie, ( movie: Movie) => movie.reviews)
+    movie!: IMovie;
 
-  @Column({
-    allowNull: false,
-    type: DataType.INTEGER.UNSIGNED
-  })
-  @ForeignKey(() => Movie)
-  movieId!: number;
+    @Column()
+    rating: number;
 
-  @Column({
-    type: DataType.INTEGER.UNSIGNED
-  })
-  rating: number;
+    @Column()
+    comment: string;
 
-  @Column({
-    type: DataType.STRING
-  })
-  comment: String;
+    @JoinColumn({ name: 'user_id' })
+    @ManyToOne(() => User, (user: User) => user.reviews, { eager: true })
+    reviewer!: User;
 
-  @BelongsTo(() => User)
-  reviewer: User;
+    @CreateDateColumn()
+    createdAt!: Date;
 
-  @BelongsTo(() => Movie)
-  moview: Movie;
+    @UpdateDateColumn()
+    updatedAt!: Date;
+
+    @DeleteDateColumn({ default: null, nullable: true })
+    deletedAt?: Date;
 }
-
-
-export default Review;
