@@ -1,4 +1,8 @@
-
+input LoginUserInput {
+  userName: String
+  email: String
+  password:  String!
+}
 
 input CreateUserInput {
   userName: String!
@@ -7,10 +11,8 @@ input CreateUserInput {
   confirmPassword: String!
 }
 
-input UpdateUserInput {
+input changePasswordInput {
   id: ID!
-  userName: String
-  email: String
   password:  String
 }
 
@@ -72,12 +74,22 @@ type Review {
   comment:String
 }
 
+type AuthPayload {
+  token: String
+  user: User
+}
+
+type Response {
+  message: String
+}
+
 type Mutation {
   createUser(input: CreateUserInput!): User
-  updateUser(input: UpdateUserInput!): User
+  loginUser(input: LoginUserInput!): AuthPayload
+  changePassword(input: changePasswordInput!): User
   createMovie(input: CreateMovieInput!): Movie
   updateMovie(input: UpdateMovieInput!): Movie
-  deleteMovie(id: ID!): Movie
+  deleteMovie(id: ID!): Response
   addReview(input: AddReviewInput!): Review
   updateReview(input: UpdateReviewInput): Review
   deleteReview(id: ID!): Review

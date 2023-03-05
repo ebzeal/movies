@@ -1,10 +1,7 @@
-// import Chef from "./Chef";
-// import * as Mutation from "./Mutation";
-// import * as Query from "./Query";
-import { createUser } from "./Mutation/user";
+import * as Mutation from "./Mutation";
 
 const resolvers = {
-  Mutation: { createUser },
+  Mutation,
 };
 
 export default resolvers;

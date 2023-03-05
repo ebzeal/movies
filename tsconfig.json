@@ -9,7 +9,8 @@
     "paths": {
       "#root/*": ["./src/*"],
       "#root": ["./src"],
-      "#db": ["./db"],
+      "#rootdb/*": ["./db/*"],
+      "#rootdb": ["./db"],
       "#accessEnv": ["./src/helpers/accessEnv"],
       "@entities":["./db/models/index.ts"]
     },

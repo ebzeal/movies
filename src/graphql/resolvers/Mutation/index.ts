@@ -1,3 +1,2 @@
-import * as createUser from "./user";
-
-export default createUser;
+export * from "./user";
+export * from "./movies";
