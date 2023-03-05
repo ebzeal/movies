@@ -3,6 +3,6 @@ import { Movie } from "../../../../db/models";
 
 const movieRepo = AppDataSource.getRepository(Movie);
 
-export const movies = () => movieRepo.findAndCount();
+export const movies = () => movieRepo.find();
 
-export const movie = (context: any, { input }: any) => movieRepo.find({ where: { id: input.id } });
+export const movie = (context: any, { id }: any) => movieRepo.findOne({ where: { id } });
