@@ -31,7 +31,7 @@ export class User implements IUser{
     })
     movies!: [Movie];
 
-    @OneToMany(() => Review, (review: Review) => review.reviewer, {
+    @OneToMany(() => Review, (review: Review) => review.user, {
       eager: false,
     })
     reviews!: [Review];

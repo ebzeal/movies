@@ -37,16 +37,14 @@ input QueryMovieInput {
   description: String
 }
 
-input AddReviewInput {
-  userId: Int!
+input CreateReviewInput {
   movieId: Int!
   rating: Int!
   comment: String
 }
 
 input UpdateReviewInput {
-  userId: Int!
-  movieId: Int!
+  id: ID!
   rating: Int
   comment: String
 }
@@ -56,6 +54,7 @@ type User {
   userName: String!
   email: String!
   movies: [Movie]
+  id: Int
 }
 
 type Movie {
@@ -63,15 +62,23 @@ type Movie {
   description: String
   director: String
   releaseDate: String
-  user: User,
-  reviews: [Review]
+  reviews: [MovieReview]
+  id: Int
 }
 
 type Review {
-  user: User!
-  movie: Movie!
+  user: Int
+  movie: Int
   rating: Int
-  comment:String
+  comment: String
+  id: Int
+}
+
+type MovieReview {
+  user: User
+  rating: Int
+  comment: String
+  id: Int
 }
 
 type AuthPayload {
@@ -90,15 +97,15 @@ type Mutation {
   createMovie(input: CreateMovieInput!): Movie
   updateMovie(input: UpdateMovieInput!): Movie
   deleteMovie(id: ID!): Response
-  addReview(input: AddReviewInput!): Review
+  createReview(input: CreateReviewInput!): Review
   updateReview(input: UpdateReviewInput): Review
-  deleteReview(id: ID!): Review
+  deleteReview(id: ID!): Response
 }
 
 
   type Query {
     movies: [Movie!]
     movie(input: QueryMovieInput!): Movie
-    movieReviews(movieId: ID!):[Review!]
+    movieReviews(movieId: ID!):[MovieReview!]
   }
 

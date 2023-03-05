@@ -18,7 +18,7 @@ export interface IMovie {
 export interface IReview {
   id: number;
   movie: IMovie;
-  reviewer: IUser;
+  user: IUser;
   rating: number;
   comment: string;
 }

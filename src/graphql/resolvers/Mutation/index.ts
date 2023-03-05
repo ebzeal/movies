@@ -1,2 +1,3 @@
 export * from "./user";
-export * from "./movies";
+export * from "./movie";
+export * from "./review";

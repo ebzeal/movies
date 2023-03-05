@@ -29,7 +29,7 @@ export class Review implements IReview{
 
     @JoinColumn({ name: 'user_id' })
     @ManyToOne(() => User, (user: User) => user.reviews, { eager: true })
-    reviewer!: User;
+    user!: User;
 
     @CreateDateColumn()
     createdAt!: Date;
