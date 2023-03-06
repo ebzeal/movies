@@ -21,7 +21,7 @@ const plugins = [
     schema,
   }),
 ];
-const server = new ApolloServer({ schema, plugins });
+const server = new ApolloServer<MyContext>({ schema, plugins });
 const { url } = await startStandaloneServer(server, {
   context: async ({ req }) => ({
     authToken: req?.headers?.authorization,
