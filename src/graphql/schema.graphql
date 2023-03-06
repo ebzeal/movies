@@ -1,26 +1,26 @@
 input LoginUserInput {
   userName: String
-  email: String
-  password:  String!
+  email: String! @constraint(format: "email", maxLength: 255)
+  password:  String! @constraint(maxLength: 255, minLength:3 )
 }
 
 input CreateUserInput {
   userName: String!
-  email: String!
-  password:  String!
-  confirmPassword: String!
+  email: String! @constraint(format: "email", maxLength: 255)
+  password:  String! @constraint(maxLength: 255, minLength:3 )
+  confirmPassword: String! @constraint(maxLength: 255, minLength:3 )
 }
 
 input changePasswordInput {
   id: ID!
-  password:  String
+  password:  String! @constraint(maxLength: 255, minLength:3 )
 }
 
 input CreateMovieInput {
   name: String!
   description: String
   director: String
-  releaseDate: String
+  releaseDate: String 
 }
 
 input UpdateMovieInput {
@@ -28,7 +28,7 @@ input UpdateMovieInput {
   name: String
   description: String
   director: String
-  releaseDate: String
+  releaseDate: String 
 }
 
 input QueryMovieInput {
