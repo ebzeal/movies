@@ -1,3 +1,13 @@
+enum SortType {
+  ASC
+  DESC
+}
+
+enum FilterType {
+  reviewed
+  notReviewed
+}
+
 input LoginUserInput {
   userName: String
   email: String! @constraint(format: "email", maxLength: 255)
@@ -74,6 +84,14 @@ type Review {
   id: Int
 }
 
+type ReviewType {
+  user: User
+  movie: Movie
+  rating: Int
+  comment: String
+  id: Int
+}
+
 type MovieReview {
   user: User
   rating: Int
@@ -90,6 +108,25 @@ type Response {
   message: String
 }
 
+type Pagination {
+  cursor: Int, 
+  limit: Int
+}
+
+type Edge {
+    node: Movie
+  }
+  type PageInfo {
+    startCursor: String
+    endCursor: String
+    hasPrevPage: Boolean
+    hasNextPage: Boolean
+  }
+  type ResponseWithPagination {
+    edges: [Edge]
+    pageInfo: PageInfo
+  }
+
 type Mutation {
   createUser(input: CreateUserInput!): User
   loginUser(input: LoginUserInput!): AuthPayload
@@ -104,8 +141,8 @@ type Mutation {
 
 
   type Query {
-    movies: [Movie!]
+    movies(cursor: String, limit: Int, sort:SortType, filter: FilterType): ResponseWithPagination
     movie(input: QueryMovieInput!): Movie
-    movieReviews(movieId: ID!):[MovieReview!]
+    review(id: ID!):ReviewType!
   }
 

@@ -10,7 +10,7 @@ import {
     DeleteDateColumn,
 } from 'typeorm';
 import { User, Movie } from './index';
-import { IUser, IMovie, IReview } from './models.interface';
+import { IReview } from './models.interface';
 
 @Entity('review')
 export class Review implements IReview{
@@ -19,7 +19,7 @@ export class Review implements IReview{
 
     @JoinColumn({ name: 'movie_id' })
     @ManyToOne(() => Movie, ( movie: Movie) => movie.reviews)
-    movie!: IMovie;
+    movie!: Movie;
 
     @Column()
     rating: number;
